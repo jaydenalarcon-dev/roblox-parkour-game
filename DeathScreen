@@ -1,0 +1,65 @@
+-- DeathScreen 
+--[[
+***PLACE IN STARTERPLAYERSCRIPTS FOLDER!***
+Purpose: Displays a quick "You died" message when the player dies.
+
+how to use?
+it does evertthing for u!
+]]
+local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
+
+local player = Players.LocalPlayer
+
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "DeathScreen"
+screenGui.ResetOnSpawn = false
+screenGui.IgnoreGuiInset = true
+screenGui.Parent = player:WaitForChild("PlayerGui")
+
+local HIDDEN_LEFT = UDim2.new(-1.2, 0, 0.5, -70)
+local CENTERED = UDim2.new(0, 0, 0.5, -70)
+local HIDDEN_RIGHT = UDim2.new(1.2, 0, 0.5, -70)
+
+local SLIDE_IN_TIME = .7
+local HOLD_TIME = .6
+local SLIDE_OUT_TIME = .7 
+
+local banner = Instance.new("Frame")
+banner.Size = UDim2.new(1, 0, 0, 140)
+banner.Position = HIDDEN_LEFT
+banner.BackgroundColor3 = Color3.fromRGB(15, 16, 20)
+banner.BorderSizePixel = 0
+banner.Parent = screenGui
+
+local label = Instance.new("TextLabel")
+label.Size = UDim2.new(1, 0, 1, 0)
+label.BackgroundTransparency = 1
+label.Text = "you died"
+label.TextColor3 = Color3.fromRGB(229, 62, 62) -- red
+label.Font = Enum.Font.GothamBlack
+label.TextScaled = true
+label.Parent = banner
+
+local function playDeathSlide()
+	banner.Position = HIDDEN_LEFT
+	local slideIn = TweenService:Create(banner, TweenInfo.new(SLIDE_IN_TIME, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), { Position = CENTERED })
+	slideIn:Play()
+	slideIn.Completed:Wait()
+
+	task.wait(HOLD_TIME)
+
+	TweenService:Create(banner, TweenInfo.new(SLIDE_OUT_TIME, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), { Position = HIDDEN_RIGHT }):Play()
+end
+
+local function onCharacterAdded(character)
+	local humanoid = character:WaitForChild("Humanoid")
+	humanoid.Died:Connect(function()
+		task.spawn(playDeathSlide)
+	end)
+end
+
+player.CharacterAdded:Connect(onCharacterAdded)
+if player.Character then
+	onCharacterAdded(player.Character)
+end
