@@ -1,0 +1,69 @@
+-- RunTimerUI 
+--[[
+***PLACE this script in StarterPlayerScripts!***
+Purpose: Keeps track of player run time and displays it on the screen.
+How to use?
+Insert key remote events in a file called "ParkourRemotes" located in replicated storage:
+- RunStarted
+- CheckpointReached
+- RunFinished
+
+Place this script in StarterPlayerScripts done ;3
+]]
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RunService = game:GetService("RunService")
+
+local player = Players.LocalPlayer
+local events = ReplicatedStorage:WaitForChild("ParkourRemotes")
+
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "RunTimerUI"
+screenGui.ResetOnSpawn = false
+screenGui.Parent = player:WaitForChild("PlayerGui")
+
+local timerLabel = Instance.new("TextLabel")
+timerLabel.Size = UDim2.new(0, 240, 0, 40)
+timerLabel.Position = UDim2.new(0.5, -120, 0, 20)
+timerLabel.BackgroundTransparency = 1
+timerLabel.TextColor3 = Color3.new(1, 1, 1)
+timerLabel.TextScaled = true
+timerLabel.Font = Enum.Font.GothamBold
+timerLabel.Text = ""
+timerLabel.Parent = screenGui
+
+local running = false
+local startTime = 0
+
+local function formatTime(seconds)
+	local minutes = math.floor(seconds / 60)
+	local secs = seconds % 60
+	return string.format("%d:%05.2f", minutes, secs)
+end
+
+events.RunStarted.OnClientEvent:Connect(function()
+	running = true
+	startTime = os.clock()
+end)
+
+events.CheckpointReached.OnClientEvent:Connect(function(order)
+	if order then
+		timerLabel.Text = formatTime(os.clock() - startTime) .. "  ·  checkpoint " .. order
+	end
+end)
+
+events.RunFinished.OnClientEvent:Connect(function(finalTime)
+	running = false
+	timerLabel.Text = "run complete: " .. formatTime(finalTime)
+end)
+
+RunService.Heartbeat:Connect(function()
+	if running then
+		timerLabel.Text = formatTime(os.clock() - startTime)
+	end
+end)
+
+events.RunReset.OnClientEvent:Connect(function()
+	running = false
+	timerLabel.Text = ""
+end)
