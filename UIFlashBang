@@ -1,0 +1,58 @@
+-- ScreenFlash 
+--[[ 
+Used to create visual feel and punch whenver you reach a checkpoint or finsih the level
+
+How to use?
+Utilize the local "Flash" function and connect that to an event in you game
+afterwards input all required parameters
+]]
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local TweenService = game:GetService("TweenService")
+
+local player = Players.LocalPlayer
+local remotes = ReplicatedStorage:WaitForChild("ParkourRemotes")
+
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "ScreenFlash"
+screenGui.ResetOnSpawn = false
+screenGui.IgnoreGuiInset = true
+screenGui.Parent = player:WaitForChild("PlayerGui")
+
+local flashFrame = Instance.new("Frame")
+flashFrame.Size = UDim2.new(1, 0, 1, 0)
+flashFrame.BackgroundColor3 = Color3.new(1, 1, 1)
+flashFrame.BackgroundTransparency = 1
+flashFrame.ZIndex = 10
+flashFrame.Parent = screenGui
+
+local activeTween
+
+--[[ Whenever activatied, screen flashes depending on duration
+    paramters:
+    Duration is the time the flash will last in seconds
+    Color is the rgb value the flash will be
+    Peak transcparcy is the transparcy the flash will start at (will disapate to 1 at the end of duration)
+    ]]
+local function flash(color, peakTransparency, duration)
+	if activeTween then
+		activeTween:Cancel()
+	end
+	flashFrame.BackgroundColor3 = color
+	flashFrame.BackgroundTransparency = peakTransparency
+
+	activeTween = TweenService:Create(
+		flashFrame,
+		TweenInfo.new(duration, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+		{ BackgroundTransparency = 1 }
+	)
+	activeTween:Play()
+end
+
+remotes.CheckpointReached.OnClientEvent:Connect(function()
+	flash(Color3.fromRGB(45, 212, 191), 0.5, 0.5)
+end)
+
+remotes.RunFinished.OnClientEvent:Connect(function()
+	flash(Color3.fromRGB(255, 214, 10), 0.5, 0.6)
+end)
