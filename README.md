@@ -1,4 +1,4 @@
-# roblox-parkour-game
+# Parkour as Fast as you Kan
 Published Roblox parkour game developed in Luau with custom (soon to be procedully generated) levels, movement mechanics, and gameplay systems.
 
 How to play:
