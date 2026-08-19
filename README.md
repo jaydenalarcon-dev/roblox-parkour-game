@@ -20,8 +20,8 @@ Up button - jump
 Toggle Run - (To be programmed)
 
 Credits:
-Jayden Alarcon - Lead Programmer, Designer, Animator
-Claude (AI) - AI Development Assistant
-"blackswoop" - Art: Thumbnail, Icon, Title (https://linktr.ee/blackswoop) <------ CLICK HERE!!!
-VBuh - Music Tracks (https://www.youtube.com/channel/UCN4vz9GNEn3wN-8xggjYo7A)
-Roblox Catalog (Free Assets) - Misc. Sound Effects, music
+- Jayden Alarcon - Lead Programmer, Designer, Animator
+- Claude (AI) - AI Development Assistant
+- "blackswoop" - Art: Thumbnail, Icon, Title (https://linktr.ee/blackswoop) <------ CLICK HERE!!!
+- VBuh - Music Tracks (https://www.youtube.com/channel/UCN4vz9GNEn3wN-8xggjYo7A)
+- Roblox Catalog (Free Assets) - Misc. Sound Effects, music
