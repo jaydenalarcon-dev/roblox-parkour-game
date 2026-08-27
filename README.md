@@ -3,10 +3,11 @@ Published Roblox parkour game developed in Luau with custom (soon to be procedul
 
 A minimalistic parkour game where you the play can run at high speeds! Brought to you by SpeedyZJolteon!!1!1! (and ClaudeAI)
 
-How to play: (SADLY ONLY AVLIABLE FOR 13+ ACCOUNTS DUE TO ROBLOX MODERATION)
+How to play: (SADLY ONLY AVLIABLE FOR 16+ ACCOUNTS DUE TO ROBLOX MODERATION)
 1. Go to https://www.roblox.com/ and create an account! (if you dont have one already)
 2. Go to https://www.roblox.com/games/104335870242946/PAF-ASK (roblox game link) and press the blue play button
 3. Download roblox and you should be able to play!
+4. If you happen to be unverified, you may have to complete Roblox's age check to play </3
 
 Controls
 PC:
